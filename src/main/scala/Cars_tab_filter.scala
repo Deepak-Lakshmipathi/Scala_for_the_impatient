@@ -5,7 +5,7 @@ import org.apache.spark.sql.functions._
 
 
 class Cars_tab_filter {
-  def main(args: Array[String]){
+  def main(args: Array[String])={
 
     val spark = SparkSession.builder().appName("test").enableHiveSupport().getOrCreate()
     val sc = spark.sparkContext
