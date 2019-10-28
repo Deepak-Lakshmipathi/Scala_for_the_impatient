@@ -7,7 +7,7 @@ import org.apache.spark.sql.functions._
 class Cars_tab_filters {
   def main(args: Array[String])={
 
-    val spark = SparkSession.builder().appName("test").enableHiveSupport().getOrCreate()
+    val spark = SparkSession.builder().appName("testAPP").enableHiveSupport().getOrCreate()
     val sc = spark.sparkContext
     val file = spark.read.format("csv").option("header","true").option("quote", "\"").option("escape", "\"").option("multiLine","true").option("inferSchema","true").load("s3://s3-test-550-2019/craigslistcarsFull.csv")
     val sqlC = new org.apache.spark.sql.SQLContext(sc)
