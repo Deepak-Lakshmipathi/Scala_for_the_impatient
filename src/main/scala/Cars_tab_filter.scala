@@ -4,7 +4,7 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
 
 
-class Car {
+object Car {
   def main(args: Array[String]): Unit = {
 
     val spark = SparkSession.builder().appName("testAPP").enableHiveSupport().getOrCreate()
