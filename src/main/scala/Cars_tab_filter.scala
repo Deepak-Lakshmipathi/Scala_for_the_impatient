@@ -1,11 +1,11 @@
-package test.testing
+package org.apache.spark
 
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
 
 
 class Car {
-  def main(args: Array[String])={
+  def main(args: Array[String]): Unit = {
 
     val spark = SparkSession.builder().appName("testAPP").enableHiveSupport().getOrCreate()
     val sc = spark.sparkContext
