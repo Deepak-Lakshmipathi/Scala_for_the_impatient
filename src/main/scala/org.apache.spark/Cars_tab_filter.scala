@@ -16,7 +16,7 @@ object Car {
     val tab3 = tab2.withColumn("id",monotonically_increasing_id())
     val temp_v1 = tab3.createOrReplaceTempView("tab3")
     val tab4 = sqlC.sql("SELECT id, city, price, year, CONCAT(manufacturer,' ',make) Cars, odometer, type, paint_color AS Color from tab3")
-    tab4.write.format("csv").save("s3://s3-test-550-2019/filtered_cars_data")
+    tab4.write.mode("overwrite").format("csv").save("s3://s3-test-550-2019/filtered_cars_data")
 
   }
 
