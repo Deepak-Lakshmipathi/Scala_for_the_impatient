@@ -10,15 +10,15 @@ class Read_from_s3{
 }
 
 
-class transform (val sqlC : SQLContext){
+class transform {
   val data = new Read_from_s3
   val temp_v = data.dat.createOrReplaceTempView("File")
-  val tab_1 = sqlC.sql("SELECT city,price,year,manufacturer,Make,odometer,type,paint_color from File").na.drop(how= "any").withColumn("id",monotonically_increasing_id()).createOrReplaceTempView("tab3")
-  def final_tab = sqlC.sql("SELECT id, city, price, year, CONCAT(manufacturer,' ',make) Cars, odometer, type, paint_color AS Color from tab3")
+  val tab_1 = data.sess.sql("SELECT city,price,year,manufacturer,Make,odometer,type,paint_color from File").na.drop(how= "any").withColumn("id",monotonically_increasing_id()).createOrReplaceTempView("tab3")
+  def final_tab = data.sess.sql("SELECT id, city, price, year, CONCAT(manufacturer,' ',make) Cars, odometer, type, paint_color AS Color from tab3")
 }
 
 class write_to_S3{
-  val post_transform= new transform(SQLContext())
+  val post_transform= new transform
   val final_tab = post_transform.final_tab
   def write = final_tab.write.mode("overwrite").format("csv").save("s3://s3-test-550-2019/filtered_cars_data")
 }
